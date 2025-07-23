@@ -12,7 +12,7 @@ source.include_exts = py,png,jpg,kv,atlas,ttf,mp3,ogg,wav
 source.include_dirs = assets
 
 version = 0.1
-requirements = python3,kivy,sdl2,mixer
+requirements = python3==3.10,kivy==2.2.1,sdl2,mixer
 orientation = portrait
 
 osx.kivy_version = 2.2.1
