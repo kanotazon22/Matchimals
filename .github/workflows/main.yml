@@ -1,0 +1,27 @@
+name: Build APK for Matchimals
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build for Android
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build APK using Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          workdir: .
+          buildozer_version: stable
+          command: buildozer android debug  # ✅ đúng cú pháp
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: matchimals-apk
+          path: ${{ steps.buildozer.outputs.filename }}
