@@ -1,4 +1,4 @@
-[app]
+[buildozer]
 
 title = Matchimals
 package.name = matchimals
