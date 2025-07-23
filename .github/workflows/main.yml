@@ -1,0 +1,57 @@
+name: Build APK for Matchimals
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build for Android
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Python version to 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10
+
+      - name: Force python aliases to point to 3.10
+        run: |
+          sudo ln -sf $(which python3.10) /usr/bin/python
+          sudo ln -sf $(which python3.10) /usr/bin/python3
+          python --version
+          python3 --version
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip zip unzip openjdk-17-jdk git \
+            autoconf automake libtool m4 libffi-dev libssl-dev libsqlite3-dev zlib1g-dev \
+            libncurses5 libncurses5-dev libstdc++6
+          pip install --upgrade pip
+          pip install buildozer cython
+
+      - name: Accept Android SDK Licenses
+        run: |
+          mkdir -p ~/.android
+          echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> ~/.android/repositories.cfg
+          echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ~/.android/repositories.cfg
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> ~/.android/repositories.cfg
+          echo "84831b9409646a918e30573bab4c9c91346d8abd" >> ~/.android/repositories.cfg
+
+      - name: Set Build Tools Version
+        run: |
+          sed -i 's|#android.build_tools_version =.*|android.build_tools_version = 34.0.0|' buildozer.spec
+
+      - name: Build APK
+        run: |
+          export P4A_LOG_LEVEL=DEBUG
+          yes | buildozer android debug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: matchimals-apk
+          path: ./bin/*.apk
