@@ -12,7 +12,7 @@ source.include_dirs = assets
 source.main = label27
 
 version = 0.1
-requirements = python3==3.11,kivy,sdl2,mixer
+requirements = python3,kivy,sdl2,mixer
 orientation = portrait
 
 osx.kivy_version = 2.2.1
