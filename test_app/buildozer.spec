@@ -1,6 +1,5 @@
 [buildozer]
 log_level = 2
-source.main = label27
 
 [app]
 title = Matchimals
@@ -14,7 +13,10 @@ source.include_dirs = assets
 version = 0.1
 requirements = python3==3.10,kivy==2.2.1,sdl2,mixer
 orientation = portrait
-
-osx.kivy_version = 2.2.1
 fullscreen = 1
 android.permissions = INTERNET
+
+osx.kivy_version = 2.2.1
+android.api = 31
+android.minapi = 21
+android.ndk = 23b
