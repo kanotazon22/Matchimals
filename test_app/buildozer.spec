@@ -37,3 +37,5 @@ android.ndk = 25b
 android.ndk_api = 21
 
 osx.kivy_version = 2.2.1
+
+icon.filename = icon.png
