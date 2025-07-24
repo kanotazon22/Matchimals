@@ -12,7 +12,7 @@ source.include_dirs = assets
 include_patterns = assets/**/*
 
 version = 0.1
-requirements = python3==3.10.11,kivy==2.2.1,sdl2,mixer
+requirements = python3==3.10.11,kivy==2.2.1,sdl2,mixer,pyjnius
 orientation = portrait
 fullscreen = 1
 android.permissions = INTERNET
