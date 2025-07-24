@@ -1824,15 +1824,12 @@ class GameScreen(Screen):
                 Animation(opacity=1, duration=1).start(button_layout)
             Clock.schedule_once(fade_in_buttons, 1)
 
-from jnius import autoclass
-
 sound_enabled = True  # Biến toàn cục
 
 class AnimalMatchApp(App):
     def build(self):
-        PythonActivity = autoclass('org.kivy.android.PythonActivity')
-        activity = PythonActivity.mActivity
-        activity.setRequestedOrientation(0)
+        # ĐÃ GỠ: dòng orientation Android gây crash
+        # Không còn gọi jnius, không cần set orientation
 
         sm = ScreenManager(transition=FadeTransition())
         sm.add_widget(StartScreen(name='start'))
@@ -1858,7 +1855,7 @@ class AnimalMatchApp(App):
             self.sound = None
 
         if not sound_enabled:
-            return  # Không chơi nếu bị tắt
+            return
 
         current_file = self.music_files[self.current_music_index]
         self.sound = SoundLoader.load(current_file)
@@ -1871,23 +1868,20 @@ class AnimalMatchApp(App):
     def on_music_end(self, instance):
         if sound_enabled:
             self.play_next_music()
-        else:
-            if self.sound:
-                self.sound.unbind(on_stop=self.on_music_end)
-                self.sound.stop()
-                self.sound.unload()
-                self.sound = None
+        elif self.sound:
+            self.sound.unbind(on_stop=self.on_music_end)
+            self.sound.stop()
+            self.sound.unload()
+            self.sound = None
 
     def update_music_state(self):
-        if not sound_enabled:
-            if self.sound:
-                self.sound.unbind(on_stop=self.on_music_end)
-                self.sound.stop()
-                self.sound.unload()
-                self.sound = None
+        if not sound_enabled and self.sound:
+            self.sound.unbind(on_stop=self.on_music_end)
+            self.sound.stop()
+            self.sound.unload()
+            self.sound = None
         else:
             self.play_next_music()
-
 if __name__ == '__main__':
     try:
         AnimalMatchApp().run()
