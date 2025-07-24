@@ -16,6 +16,7 @@ requirements = python3==3.10.11,kivy==2.2.1,sdl2,mixer
 orientation = portrait
 fullscreen = 1
 android.permissions = INTERNET
+icon.filename = icon.png  # ← Dòng này là mới thêm
 
 osx.kivy_version = 2.2.1
 android.api = 31
