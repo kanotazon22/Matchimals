@@ -1889,4 +1889,10 @@ class AnimalMatchApp(App):
             self.play_next_music()
 
 if __name__ == '__main__':
-    AnimalMatchApp().run()
+    try:
+        AnimalMatchApp().run()
+    except Exception as e:
+        import traceback
+        with open("log.txt", "w") as f:
+            f.write("CRASH\n")
+            f.write(traceback.format_exc())
