@@ -1,0 +1,26 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.example.matchimals">
+
+    <application
+        android:label="Matchimals"
+        android:icon="@drawable/icon"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true">
+
+        <activity
+            android:name="org.kivy.android.PythonActivity"
+            android:label="Matchimals"
+            android:launchMode="singleTask"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|locale|layoutDirection|fontScale"
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.GAME" />
+            </intent-filter>
+
+        </activity>
+
+    </application>
+</manifest>
